@@ -901,7 +901,7 @@ public class FMRadioService extends Service {
      * Gets the audio focus initializing the audio driver.
      */
     public void fmGetAudioFocus() {
-        mAudioManager.requestAudioFocus(mAudioFocusListener, AudioManager.STREAM_MUSIC,
+        mAudioManager.requestAudioFocus(mAudioFocusListener, AudioManager.STREAM_FM,
                 AudioManager.AUDIOFOCUS_GAIN);
     }
 

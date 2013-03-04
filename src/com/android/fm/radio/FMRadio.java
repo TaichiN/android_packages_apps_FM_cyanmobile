@@ -306,6 +306,7 @@ public class FMRadio extends Activity {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.fmradio);
+        setVolumeControlStream(AudioManager.STREAM_FM);
         updateFmSpeakerDrawable(getResources().getConfiguration().orientation ==
                 Configuration.ORIENTATION_LANDSCAPE);
         mOnOffButton = (ImageButton) findViewById(R.id.btn_onoff);
@@ -461,12 +462,12 @@ public class FMRadio extends Activity {
     }
 
     private void switchToSpeaker() {
-        AudioSystem.setForceUse(AudioSystem.FOR_MEDIA, AudioSystem.FORCE_SPEAKER);
+        AudioSystem.setForceUse(AudioSystem.STREAM_FM, AudioSystem.FORCE_SPEAKER);
         AudioSystem.setDeviceConnectionState(AudioSystem.DEVICE_OUT_FM, AudioSystem.DEVICE_STATE_AVAILABLE, "");
     }
 
     private void switchToHeadset() {
-        AudioSystem.setForceUse(AudioSystem.FOR_MEDIA, AudioSystem.FORCE_NONE);
+        AudioSystem.setForceUse(AudioSystem.STREAM_FM, AudioSystem.FORCE_NONE);
         AudioSystem.setDeviceConnectionState(AudioSystem.DEVICE_OUT_FM, AudioSystem.DEVICE_STATE_AVAILABLE, "");
     }
 
@@ -934,7 +935,7 @@ public class FMRadio extends Activity {
             try {
                 mService.mute();
 
-                AudioSystem.setForceUse(AudioSystem.FOR_MEDIA, AudioSystem.FORCE_NONE);
+                AudioSystem.setForceUse(AudioSystem.STREAM_FM, AudioSystem.FORCE_NONE);
                 AudioSystem.setDeviceConnectionState(AudioSystem.DEVICE_OUT_FM, AudioSystem.DEVICE_STATE_UNAVAILABLE, "");
 
                // reset volume to avoid a bug that volume will be MAX
@@ -1022,7 +1023,7 @@ public class FMRadio extends Activity {
                 }
                 else {
                     // shut down force use
-                    AudioSystem.setForceUse(AudioSystem.FOR_MEDIA, AudioSystem.FORCE_NONE);
+                    AudioSystem.setForceUse(AudioSystem.STREAM_FM, AudioSystem.FORCE_NONE);
                 }
 
                 // Toggle BT on/off depending on value in preferences
@@ -1664,7 +1665,7 @@ public class FMRadio extends Activity {
     final Runnable mRadioDisabled = new Runnable() {
         public void run() {
             // shut down force use
-            AudioSystem.setForceUse(AudioSystem.FOR_MEDIA, AudioSystem.FORCE_NONE);
+            AudioSystem.setForceUse(AudioSystem.STREAM_FM, AudioSystem.FORCE_NONE);
             // Update UI to FM Off State
             enableRadioOnOffUI(false);
 
